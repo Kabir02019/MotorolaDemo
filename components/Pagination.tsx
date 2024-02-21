@@ -24,7 +24,7 @@ const Pagination = ({itemCount,pageSize,currentPage}: Props) => {
         router.push("?" + params.toString())
     }
 
-  return (
+  return ( 
     <div className = 'mt-4'>
         <div>
         <Button variant = "outline" disabled = {currentPage ===1}
