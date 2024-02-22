@@ -70,6 +70,7 @@ const TicketForm = ({ticket}: Props) => {
                      defaultValue={ticket?.title}
                      render={({ field }) => (
                         <FormItem>
+                             <FormLabel>Ticket Title</FormLabel>
                             <FormControl>
                                 <Input placeholder="Ticket Title..." {...field} />
                             </FormControl>

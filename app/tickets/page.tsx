@@ -4,12 +4,13 @@ import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
 import Pagination from '@/components/Pagination';
 
-interface SearchParams {
+export interface SearchParams {
   status: Status
   page : string;
+  orderBy: keyof Ticket;
 }
 
-import { PrismaClient, Status } from '@prisma/client';
+import { PrismaClient, Status, Ticket } from '@prisma/client';
 import StatusFilter from '@/components/StatusFilter';
 
 const prisma = new PrismaClient();
@@ -59,7 +60,7 @@ const Tickets = async ({searchParams} : {searchParams: SearchParams} ) => {
       <Link href = "/tickets/new" className ={buttonVariants({variant: "default"})}> New Moto Ticket</Link>
       <StatusFilter />
       </div>
-      <DataTable tickets = {tickets}/> 
+      <DataTable tickets={tickets} searchParams ={searchParams}/> 
       <Pagination itemCount = {ticketCount} pageSize={10} currentPage={page}/>
     </div>
   )
