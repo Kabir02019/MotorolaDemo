@@ -2,9 +2,28 @@ import { userSchema } from "@/ValidationSchemas/users";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/prisma/db";
 import bcrypt from "bcryptjs";
+import { getServerSession } from 'next-auth';
+import options from '../auth/[...nextauth]/options'
 
 export async function POST(request: NextRequest) {
-    const body = await request.json()
+    
+  const session = await getServerSession(options);
+
+    if(!session)
+    {
+        return NextResponse.json({message: "You are not authorized to perform this action"}, {status: 401});
+    }
+
+
+    if(session.user?.role !== "ADMIN")
+    {
+        return NextResponse.json({message: "You are not authorized to perform this action"}, {status: 401});
+    }
+
+    
+  
+  
+  const body = await request.json()
     const validation = userSchema.safeParse(body);
 
     if (!validation.success) {
